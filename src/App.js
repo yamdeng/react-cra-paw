@@ -1,21 +1,31 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import "./App.css";
-import Home from "./Home";
-import List from "./List";
-import Form from "./Form";
+import OffLineApp from "./OffLineApp";
+
+const isFirstOnline = navigator.onLine;
 
 function App() {
+  const [isNetworkOnline, setIsNetworkOnline] = useState(isFirstOnline);
+  window.addEventListener("online", (event) => {});
+
+  let AppComponent = <App />;
+  if (!isNetworkOnline) {
+    AppComponent = <OffLineApp />;
+  }
+
+  useEffect(() => {
+    window.addEventListener("online", (event) => {
+      setIsNetworkOnline(true);
+    });
+    window.addEventListener("offline", (event) => {
+      setIsNetworkOnline(false);
+    });
+  }, []);
+
   return (
     <div className="App">
-      test1
-      <div>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/list" element={<List />} />
-          <Route path="/form" element={<Form />} />
-        </Routes>
-      </div>
+      App Root
+      {AppComponent}
     </div>
   );
 }
