@@ -6,7 +6,7 @@ function List() {
   const navigate = useNavigate();
 
   const search = async () => {
-    const url = "https://api.github.com/repos/yamdeng/learn-react";
+    const url = "https://nam.veta.naver.com/gfp/v1?u=p_main_webtoon";
     try {
       const response = await fetch(url);
       if (!response.ok) {
@@ -14,7 +14,7 @@ function List() {
       }
 
       const data = await response.json();
-      setData(data.created_at);
+      setData(data.requestId);
       console.log(data);
     } catch (error) {
       console.error(error.message);
@@ -31,7 +31,7 @@ function List() {
 
   return (
     <div>
-      created_at : {data}
+      requestId : {data}
       <p onClick={movePage}>go form</p>
     </div>
   );

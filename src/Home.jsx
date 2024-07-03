@@ -6,7 +6,7 @@ function Home() {
   const navigate = useNavigate();
 
   const search = async () => {
-    const url = "https://api.github.com/repos/yamdeng/learn-react";
+    const url = "https://nam.veta.naver.com/gfp/v1?u=p_main_webtoon";
     try {
       const response = await fetch(url);
       if (!response.ok) {
@@ -14,7 +14,7 @@ function Home() {
       }
 
       const data = await response.json();
-      setData(data.git_url);
+      setData(data.adUnit);
       console.log(data);
     } catch (error) {
       console.error(error.message);
@@ -29,9 +29,11 @@ function Home() {
     search();
   }, []);
 
+  const currentDate = "";
+
   return (
     <div>
-      git_url : {data}
+      adUnit : {data}, current date : {currentDate}
       <p onClick={movePage}>go list</p>
     </div>
   );

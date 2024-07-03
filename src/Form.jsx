@@ -6,7 +6,7 @@ function Form() {
   const navigate = useNavigate();
 
   const search = async () => {
-    const url = "https://api.github.com/repos/yamdeng/learn-react";
+    const url = "https://nam.veta.naver.com/gfp/v1?u=p_main_webtoon";
     try {
       const response = await fetch(url);
       if (!response.ok) {
@@ -14,7 +14,7 @@ function Form() {
       }
 
       const data = await response.json();
-      setData(data.archive_url);
+      setData(data.head.description);
       console.log(data);
     } catch (error) {
       console.error(error.message);
@@ -31,7 +31,7 @@ function Form() {
 
   return (
     <div>
-      archive_url : {data}
+      description : {data}
       <p onClick={movePage}>go home</p>
     </div>
   );
