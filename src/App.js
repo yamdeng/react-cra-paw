@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 
 function App() {
   const [data, setData] = useState([]);
   const search = async () => {
-    const url = "http://10.111.158.205:18080/api/v1/airplanes";
+    const url = "https://api.github.com/repos/yamdeng/learn-react";
     try {
       const response = await fetch(url);
       if (!response.ok) {
@@ -25,8 +24,8 @@ function App() {
   }, []);
   return (
     <div className="App">
-      <p>server data display</p>
-      {/* <div>{JSON.stringify(data)}</div> */}
+      <p>server data display2</p>
+      <div>{JSON.stringify(data)}</div>
     </div>
   );
 }
