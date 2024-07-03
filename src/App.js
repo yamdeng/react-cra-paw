@@ -11,10 +11,9 @@ function App() {
         throw new Error(`Response status: ${response.status}`);
       }
 
-      const json = await response.json();
-      const data = json.data;
+      const data = await response.json();
       setData(data);
-      console.log(json);
+      console.log(data);
     } catch (error) {
       console.error(error.message);
     }
@@ -24,7 +23,7 @@ function App() {
   }, []);
   return (
     <div className="App">
-      <p>server data display2</p>
+      <p>server data display3</p>
       <div>{JSON.stringify(data)}</div>
     </div>
   );
