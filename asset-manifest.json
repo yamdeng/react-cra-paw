@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/react-cra-paw/static/css/main.f855e6bc.css",
+    "main.js": "/react-cra-paw/static/js/main.a49a2611.js",
+    "static/js/453.ef5db0c4.chunk.js": "/react-cra-paw/static/js/453.ef5db0c4.chunk.js",
+    "service-worker.js": "/react-cra-paw/service-worker.js",
+    "static/media/logo.svg": "/react-cra-paw/static/media/logo.103b5fa18196d5665a7e12318285c916.svg",
+    "index.html": "/react-cra-paw/index.html",
+    "main.f855e6bc.css.map": "/react-cra-paw/static/css/main.f855e6bc.css.map",
+    "main.a49a2611.js.map": "/react-cra-paw/static/js/main.a49a2611.js.map",
+    "453.ef5db0c4.chunk.js.map": "/react-cra-paw/static/js/453.ef5db0c4.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f855e6bc.css",
+    "static/js/main.a49a2611.js"
+  ]
+}
