@@ -119,8 +119,11 @@ function OffLineApp() {
 
   const [fileKeys, setFileKeys] = useState([]);
 
-  const [files, setFiles] = useState([]);
+  //const [files, setFiles] = useState([]);
   const [formData, setFormData] = useState(new FormData());
+  const getFormArray = () => {
+    return Array.from(formData.entries())
+  }
 
   const fileInputRef = useRef(null);
 
@@ -174,37 +177,18 @@ function OffLineApp() {
   };
 
   const handleFileChange = (event) => {
-    const newFiles = Array.from(event.target.files);
-    setFiles((prevFiles) => [...prevFiles, ...newFiles]);
-  };
-
-  useEffect(() => {
-    //console.log('Updated Files:', files);
-    saveFileToStorage();
-  }, [files]);
-
-  const saveFileToStorage = async () => {
+    if (!event.target.files[0]) return;
+    //const newFiles = Array.from(event.target.files);
+    //setFiles((prevFiles) => [...prevFiles, ...newFiles]);
     const formData = new FormData();
-    files.forEach((file, index) => {
-      //console.log(`file: ${index}`);
-      formData.append(`file${index}`, file);
-    });
+    let index = 0;
+    getFormArray().forEach(([key, file], i) => {
+      formData.append(`file${i}`, file)
+      index++;
+    })
+    formData.append(`file${index}`, event.target.files[0]);
     setFormData(formData);
-  }
-
-  // const runQuery = () => {
-  //   if (db) {
-  //     const res = db.exec(SELECT_REPORT_FULL);
-  //     console.log(`res.length: ${res.length}`)
-  //     if (res.length > 0) {
-  //       const rows = res[0].values;
-  //       rows.forEach((row) => {
-  //         console.log(row);
-  //       });
-  //     }
-  //     setResults(res[0] ? res[0].values : []);
-  //   }
-  // };
+  };
 
   const refreshReports = () => {
     if (db) {
@@ -326,6 +310,18 @@ function OffLineApp() {
     }
   }
 
+  const removeFormFile = (fileToRemove) => {
+    let formData = new FormData();
+    let index = 0;
+    getFormArray().forEach(([key, file], _) => {
+      if (key !== fileToRemove) {
+        formData.append(`file${index}`, file)
+        index++;
+      }
+    })
+    setFormData(formData)
+  }
+
   const commitSQL = async () => {
     const dbData = db.export();
     await set(DB_SQLJS_NAME, dbData);
@@ -335,15 +331,6 @@ function OffLineApp() {
     <>
       <div className="container">
         <div className="font-bold text-xl my-3">offline app</div>
-        {/* <div>
-          <button onClick={runQuery} className="test-button">Run Query</button>
-          <ul>
-            {results.map((row, index) => (
-              <li key={index}>{row.join(", ")}</li>
-            ))}
-          </ul>
-        </div> */}
-
         <div>
           <input
             type="file"
@@ -351,7 +338,7 @@ function OffLineApp() {
             style={{ display: 'none' }}
             onChange={handleFileChange}
           />
-          <button onClick={handleButtonClick} className="test-button">파일 선택 및 업로드</button>
+          <button onClick={handleButtonClick} className="test-button">파일 선택</button>
         </div>
 
         <div>
@@ -367,7 +354,7 @@ function OffLineApp() {
                       </div>
                       <button
                         onClick={(() => {
-                          console.log('clicked')
+                          removeFormFile(key)
                         })}
                         className="flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400">
                         <span className="text-lg font-bold">X</span>
