@@ -270,6 +270,9 @@ function OffLineApp() {
           refreshReports();
 
           refreshAttachment();
+
+          setFormData(new FormData());
+          setFileKeys([]);
         })
       }
 
