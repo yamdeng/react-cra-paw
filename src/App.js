@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import OffLineApp from "./OffLineApp";
-import OnlineApp from "./OnlineApp";
+import OffLineAppOld from "./OffLineAppOld";
+// import OnlineApp from "./OnlineApp";
 import localforage from 'localforage';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 //localForage.defineDriver(memoryDriver)
 //localforage.setDriver([localforage.LOCALSTORAGE, localforage.INDEXEDDB, localforage.WEBSQL])
@@ -99,10 +101,23 @@ function App() {
   const [isNetworkOnline, setIsNetworkOnline] = useState(isFirstOnline);
   window.addEventListener("online", (event) => { });
 
-  let AppComponent = <OffLineApp />;
-  if (!isNetworkOnline) {
-    AppComponent = <OffLineApp />;
-  }
+  // let AppComponent = <OffLineApp />;
+  // let AppComponent = <OffLineAppOld />;
+  // if (!isNetworkOnline) {
+  //   AppComponent = <OffLineApp />;
+  // }
+
+  return (
+    <div className="App">
+      <Router>
+        <Routes>
+          <Route path="/" element={<OffLineApp />} />
+          <Route path="old" element={<OffLineAppOld />} />
+        </Routes>
+      </Router>
+    </div>
+  )
+
 
   // useEffect(() => {
   //   window.addEventListener("online", (event) => {
@@ -135,12 +150,12 @@ function App() {
   //   // fetchData();
   // }, []);
 
-  return (
-    <div className="App">
-      App Root
-      {AppComponent}
-    </div>
-  );
+  // return (
+  //   <div className="App">
+  //     App Root
+  //     {AppComponent}
+  //   </div>
+  // );
 }
 
 export default App;
